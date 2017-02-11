@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zaoueli.justj.R;
-
 import java.text.NumberFormat;
 
 /**
@@ -16,6 +14,7 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
+    public static final int PRICE_PER_CUP = 5;
     private int quantity = 2;
 
     /**
@@ -37,20 +36,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitOrder(View view) {
-        int price = quantity * 5;
-        String priceMessage = "Total: " + price;
-        priceMessage = priceMessage + "\nThank you";
-        displayMessage(priceMessage);
+        int price = calculatePrice();
 
-        String message = "Oder submitted with " + quantity + " item(s)";
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        String orderSummary = createOrderSummary(price);
+        displayMessage(orderSummary);
+
+        String ToastMessage = "Oder submitted with " + quantity + " item(s)";
+        Toast.makeText(getApplicationContext(), ToastMessage, Toast.LENGTH_SHORT).show();
 
     }
 
-    private void display(int number) {
-        Log.e("display_called", " display called with number = " + number);
+    private String createOrderSummary(int price) {
+        String summary = "Name: Mr. Muster\n";
+        summary = summary + "Quantity = " + quantity + "\n";
+        summary = summary + "Total: " + price + "\n";
+        summary = summary + "Thank you!";
+        return summary;
+    }
+
+    private int calculatePrice() {
+        return quantity * PRICE_PER_CUP;
+    }
+
+    private void displayQuantity(int numberOfCoffees) {
+        Log.e("display_called", " display called with number = " + numberOfCoffees);
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
+        quantityTextView.setText("" + numberOfCoffees);
+    }
+
+    private void displayMessage(String message) {
+        TextView priceTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        priceTextView.setText(message);
+    }
+
+
+    public void increment(View view) {
+        quantity++;
+        displayQuantity(quantity);
+        displayPrice(5 * quantity);
+    }
+
+    public void decrement(View view) {
+        quantity--;
+        displayQuantity(quantity);
+        displayPrice(5 * quantity);
     }
 
     private void displayPrice(int number) {
@@ -58,20 +87,4 @@ public class MainActivity extends AppCompatActivity {
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
-    public void increment(View view) {
-        quantity++;
-        display(quantity);
-        displayPrice(5 * quantity);
-    }
-
-    public void decrement(View view) {
-        quantity--;
-        display(quantity);
-        displayPrice(5 * quantity);
-    }
-
-    private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
-    }
 }
