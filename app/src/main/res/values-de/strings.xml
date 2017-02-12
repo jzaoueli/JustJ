@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Just J</string>
+    <string name="chocolate">Schokolade</string>
+    <string name="name">Name</string>
+    <string name="order">Bestellung</string>
+    <string name="order_summary">Bestellübersicht</string>
+    <string name="price">Preis</string>
+    <string name="quantity">Menge</string>
+    <string name="topping">Garnierung</string>
+    <string name="whipped_cream">Schlagsahne</string>
+    <string name="has_chocolate">hat Schokolade</string>
+    <string name="has_whipped_cream">hat Schlagsahne</string>
+    <string name="thank_you">Danke</string>
+    <string name="total">Total</string>
+    <string name="_10_00">10,00 €</string>
+</resources>

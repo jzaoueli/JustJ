@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String createOrderSummary(String name, int price, Boolean hasWhippedCream, Boolean hasChocolate) {
-        String summary = name + "\n";
-        summary = summary + "has Whipped Cream? " + hasWhippedCream + "\n";
-        summary = summary + "has Chocolate? " + hasChocolate + "\n";
-        summary = summary + "Quantity = " + quantity + "\n";
-        summary = summary + "Total: " + price + "\n";
-        summary = summary + "Thank you!";
+        String summary = getString(R.string.name) + ": " + name + "\n";
+        summary = summary + getString(R.string.has_whipped_cream) + "? " + hasWhippedCream + "\n";
+        summary = summary + getString(R.string.has_chocolate) + "? " + hasChocolate + "\n";
+        summary = summary + getString(R.string.quantity) + ": " + quantity + "\n";
+        summary = summary + getString(R.string.total) + ": " + NumberFormat.getCurrencyInstance().format(price) + "\n";
+        summary = summary + getString(R.string.thank_you) + "!";
         return summary;
     }
 

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Just J</string>
+    <string name="name">Name</string>
+    <string name="topping">Topping</string>
+    <string name="whipped_cream">Whipped cream</string>
+    <string name="chocolate">chocolate</string>
+    <string name="quantity">Quantity</string>
+    <string name="price">Price</string>
+    <string name="order">Order</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="has_whipped_cream">has Whipped Cream?</string>
+    <string name="has_chocolate">has Chocolate?</string>
+    <string name="total">Total</string>
+    <string name="thank_you">Thank you</string>
+    <string name="_10_00">10,00 $</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="minus" translatable="false">-</string>
+    <string name="number_2" translatable="false">2</string>
 </resources>
