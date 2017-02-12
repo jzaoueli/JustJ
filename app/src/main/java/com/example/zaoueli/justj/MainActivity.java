@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,18 +19,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int PRICE_PER_CUP = 5;
     private int quantity = 2;
 
-    /**
-     * String title = "Today\'s Specials";
-     * String specialOfTheDay = "Caffe Latte";
-     * String nutritionInfo = "500 calories or less";
-     * String drinkName = "iced coffee";
-     * ***
-     * String orderNumber = "Order number: " + 23;
-     * String barista = "You were served by " + "Jack";
-     * String sneackyPromotion = "You are" + 2 + "cups away from free drink.";
-     */
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,26 +26,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitOrder(View view) {
-        int price = calculatePrice();
+        CheckBox hasWhippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_check_box);
+        Boolean hasWhippedCream = hasWhippedCreamCheckBox.isChecked();
+        Log.i("+_+ MyTrack -_-", "hasWhippedCream = " + hasWhippedCream);
 
-        String orderSummary = createOrderSummary(price);
+        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_check_box);
+        boolean hasChocolate = chocolateCheckBox.isChecked();
+
+        int price = calculatePrice(hasWhippedCream, hasChocolate);
+
+        EditText nameTextView = (EditText) findViewById(R.id.name_edit_text);
+        String name = nameTextView.getText().toString();
+
+        String orderSummary = createOrderSummary(name, price, hasWhippedCream, hasChocolate);
         displayMessage(orderSummary);
-
-        String ToastMessage = "Oder submitted with " + quantity + " item(s)";
-        Toast.makeText(getApplicationContext(), ToastMessage, Toast.LENGTH_SHORT).show();
 
     }
 
-    private String createOrderSummary(int price) {
-        String summary = "Name: Mr. Muster\n";
+    private String createOrderSummary(String name, int price, Boolean hasWhippedCream, Boolean hasChocolate) {
+        String summary = name + "\n";
+        summary = summary + "has Whipped Cream? " + hasWhippedCream + "\n";
+        summary = summary + "has Chocolate? " + hasChocolate + "\n";
         summary = summary + "Quantity = " + quantity + "\n";
         summary = summary + "Total: " + price + "\n";
         summary = summary + "Thank you!";
         return summary;
     }
 
-    private int calculatePrice() {
-        return quantity * PRICE_PER_CUP;
+    private int calculatePrice(Boolean hasWhippedCream, boolean hasChocolate) {
+        int BasePrice = PRICE_PER_CUP;
+        if (hasWhippedCream) {
+            BasePrice = BasePrice + 1;
+        }
+        if (hasChocolate) {
+            BasePrice = BasePrice + 2;
+        }
+        return BasePrice * quantity;
     }
 
     private void displayQuantity(int numberOfCoffees) {
@@ -71,15 +77,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void increment(View view) {
+        if (quantity == 100) {
+            Toast.makeText(this, "you cannot order more than 100 coffees", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity++;
         displayQuantity(quantity);
         displayPrice(5 * quantity);
+
     }
 
     public void decrement(View view) {
+        if (quantity == 1) {
+            Toast.makeText(this, "you cannot have less than one coffee", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity--;
         displayQuantity(quantity);
         displayPrice(5 * quantity);
+
     }
 
     private void displayPrice(int number) {
